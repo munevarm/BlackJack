@@ -175,10 +175,7 @@ public class DeckOfCards   {
                     totalValue =+11;
                 }               
             }
-            
-        
-//        Card c = new Card();
-        
+   
         return totalValue;
     }
     
