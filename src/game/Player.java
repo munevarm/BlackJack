@@ -133,6 +133,12 @@ public class Player extends project.Player {
     public void loadFunds(double fund){
         this.playerMoney += fund;
     }
+    public boolean checkFundBalance(){
+        if(playerBetMoney > playerMoney ){
+            return false;
+        }
+        return true;
+    }
     public void clearPlayerCardsDeck(){
         playerCards.clear();
     }
