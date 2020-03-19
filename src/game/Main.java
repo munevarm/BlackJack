@@ -5,6 +5,7 @@
  */
 package game;
 
+import static game.Main.decimalFormat;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -14,26 +15,27 @@ import java.util.Scanner;
  * @author Dell
  */
 public class Main {
-
-    public static void main(String[] args) {
         //Scanner object to take input from the user during runtime
-        Scanner input = new Scanner(System.in);
+        static Scanner input = new Scanner(System.in);
 
         //DecimalFormat object to format value in currency format
-        DecimalFormat decimalFormat = new DecimalFormat("$#,##0.0");
+        static DecimalFormat decimalFormat = new DecimalFormat("$#,##0.0");
 
         //object to hold dealer info
         Dealer dealer = new Dealer();
 
         //variable to count the number of dealing
-        int roundOfDealing = 0;
+        static int roundOfDealing = 0;
 
         //code to create player object
-        ArrayList<Player> playerList = new ArrayList<>();
+        static ArrayList<Player> playerList = new ArrayList<>();
         //variable to count number of players 
         //Max number of player to play at a time is 3
-        final int MAXPLAYER = 2;
-        int countPlayer = 0;
+        static final int MAXPLAYER = 2;
+        static int countPlayer = 0;
+    
+    //method to add player for the game
+    private static void addPlayer(){
         char nextPlayer = 'Y';
         //loop used to add player object into ArrayList object of player
         do {
@@ -58,33 +60,103 @@ public class Main {
 
         } while (nextPlayer == 'Y' || nextPlayer == 'y');
 
-//        //Codes to input player id and initial money to deposit
-//        System.out.print("Enter player ID(String or Numeric value ) :  ");
-//        String playerId = input.next();
-//        System.out.print("Enter initial deposit money (only numeric value ) : ");
-//        double depostiMoney = input.nextDouble();
-//        System.out.println("------------------------------------");
-//        System.out.println("");
-//        //Player object to hold player information
-//        Player player = new Player(playerId, depostiMoney);
-        //prints welcome message
-        System.out.println("********************");
-        System.out.println("Welcome to BlackJack!");
-        System.out.println("-------------------------------");
-
-        //print player's information
+    }
+    
+    //method to print player's information before game start
+    private static void printPlayerInformation(){
+       //print player's information
         System.out.println("Player's Information: ");
         for (Player player : playerList) {
             System.out.println("Player Id is : " + player.getPlayerID());
             System.out.println(player.getPlayerID() + " has "
                     + decimalFormat.format(player.getPlayerMoney()));
             System.out.println("------------------------------------------");
-        }
-//        System.out.println("Player Id is : " + player.getPlayerID());
-//        System.out.println(player.getPlayerID() + " has " + 
-//                decimalFormat.format(player.getPlayerMoney()));
-//        System.out.println("------------------------------------------");
-//        
+        } 
+    }
+    
+    //method that ask the player to input bet amount 
+    private static void inputBetAmount() {
+        //loop that ask every player for bet amount as well as the bet amount
+        //is sufficient according to player's balance in his/her wallert or not
+        for (Player player : playerList) {
+
+            //loop that makes sure that only valid numerical value is entered
+            //for bet amount
+            double betAmount = 0;
+            //String inputValue;
+            Boolean isInputValid = true;
+            do {
+                System.out.println("Hey, " + player.getPlayerID() + ", enter the bet amount : ");
+                try {
+                    betAmount = input.nextDouble();
+                }//end of try block
+                catch (NumberFormatException ex) {
+                    isInputValid = false;
+                    System.out.println("Invalid value! Pleae, enter only numeric value.");
+                }
+                //if the input amount is valid, check for the amount is sufficient or not
+                if (isInputValid) {
+
+                    //method calls to input the amount to load in the players wallet
+                    inputAmountForLoadingInWallet(player, betAmount);
+                }
+            } while (!isInputValid);
+        }//end of advanced for loop
+    }//end of method 
+    
+    //method that is used to load amount in player's wallet
+    private static void inputAmountForLoadingInWallet(Player player, double betAmount) {
+        //code to check the player has sufficient fund to bet or not
+        //if not, then ask the user to load the fund in the wallet
+        if (betAmount > player.getPlayerMoney()) {
+            System.out.println("Hey, " + player.getPlayerID() + ", you don't have sufficent fund to bet "
+                    + decimalFormat.format(betAmount));
+
+            System.out.println("You have only " + decimalFormat.format(player.getPlayerMoney()));
+
+            //System.out.println("Player ID: " + player.getPlayerID());
+            System.out.println("\tDo you want to load fund "
+                    + "in your wallet? \n"
+                    + "Press 'Y' to load fund or any other key to cancel.");
+            Character loadFund = input.next().charAt(0);
+            if (loadFund == 'Y' || loadFund == 'y') {
+                //loop that checks the valid value is entered or not
+                double newLoadAmount = 0;
+                boolean isLoadAmountValid = true;
+                do {
+                    try {
+                        System.out.println("Enter the amount to load in your wallet : ");
+                        newLoadAmount = input.nextDouble();
+                    } catch (NumberFormatException e) {
+                        isLoadAmountValid = false;
+                        System.out.println("Pleae, enter only the numeric value for amount!");
+                    }
+                } while (!isLoadAmountValid);
+                //method to load funds in player's wallet                               
+                player.loadFunds(newLoadAmount);
+            } else {
+                //when the player refuses to add fund, player gets 
+                //removed from the playerList
+                String removedPlayerId = player.getPlayerID();
+                playerList.remove(player);
+                System.out.println(removedPlayerId + ", you have been removed from the player list as you "
+                        + "you dont have sufficient fund and you refused to load fund in you wallet.!");
+            }
+        }        
+    }
+    public static void main(String[] args) {
+        
+            //method calls to add player in game
+            addPlayer();
+            
+        //prints welcome message
+        System.out.println("********************");
+        System.out.println("Welcome to BlackJack!");
+        System.out.println("-------------------------------");
+
+        //method calls that print player's information
+        printPlayerInformation();
+   
         //Static method calls to create full deck of cards
         DeckOfCards.createFullDeck();
 
@@ -114,58 +186,10 @@ public class Main {
             System.out.println("--------------------------------------------");
             System.out.println("Beginning New Game!");
             System.out.println("Dealing...");
-
-            //loop that ask the player for bet amount
-            for (Player player : playerList) {
-                double betAmount = n0;
-                String inputValue;
-                Boolean isInputValid = true;
-                //loop that makes sure that only valid numerical value is entered
-                do {
-                    System.out.println("Hey, " + player.getPlayerID() + ", enter the bet amount : ");
-                    try {
-                        betAmount = input.nextDouble();
-                    }//end of try block
-                    catch (NumberFormatException ex) {
-                        isInputValid = false;
-                        System.out.println("Invalid value! Pleae, enter only numeric value.");
-                    }
-                    //if the input amount is valid, check for the amount is sufficient or not
-                    if(isInputValid){
-                        //code to check the player has sufficient fund to bet or not
-                        //
-                        if (betAmount > player.getPlayerMoney() ) {
-                            System.out.println("Hey, " + player.getPlayerID() + ", you don't have sufficent fund to bet " + 
-                                    decimalFormat.format(betAmount));
-                            
-                            System.out.println( "You have only " + decimalFormat.format(player.getPlayerMoney()));
-
-                            //if fund is not sufficient, ask player to load fund in his/her wallet
-                            //System.out.println("Player ID: " + player.getPlayerID());
-                            System.out.println("\tDo you want to load fund "
-                                    + "in your wallet? \n"
-                                    + "Press 'Y' to load fund or any other key to cancel.");
-                            Character loadFund = input.next().charAt(0);
-                            if (loadFund == 'Y' || loadFund == 'y') {
-                                System.out.println("Enter the amount to load in your wallet : ");
-                                double newAmount = input.nextDouble();
-                                
-                                player.loadFunds(newAmount);
-
-                            } 
-                            else {
-                                //when the player refuses to add fund, player gets 
-                                //removed from the playerList
-                                String removedPlayerId = player.getPlayerID();
-                                playerList.remove(player);
-                                System.out.println(removedPlayerId + ", you have been removed from the player list as you "
-                                        + "you dont have sufficient fund and you refused to load fund in you wallet.!");
-                            }
-                        }
-                    }                     
-                 }while (!isValid);
-                }           
-            }
+            
+            //method calls that is used to input bet amount 
+            inputBetAmount();
+           
             if (player.getPlayerMoney() <= 0) {
                 System.out.println("You dont have sufficient funds to play game.");
                 System.out.println("Do you want to load fund "
