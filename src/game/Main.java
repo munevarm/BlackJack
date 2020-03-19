@@ -39,6 +39,12 @@ public class Main {
         char nextPlayer = 'Y';
         //loop used to add player object into ArrayList object of player
         do {
+            //variable that counts number of player that can be added in game
+            countPlayer++;
+            if (countPlayer > MAXPLAYER) {
+                System.out.println("You can not add more than " + MAXPLAYER + " players!");
+                break;
+            }           
             //Codes to input player id and initial money to deposit
             System.out.print("Enter player ID(String or Numeric value ) :  ");
             String playerId = input.next();
@@ -49,15 +55,11 @@ public class Main {
             //Player object to hold player information
             Player player = new Player(playerId, depostiMoney);
             playerList.add(player);
-            countPlayer++;
-            if (countPlayer >= MAXPLAYER) {
-                System.out.println("You can not add more than " + MAXPLAYER + "!");
-                break;
-            }
-            System.out.println("Do you want to add next player ? \n"
+                      
+            System.out.print("Do you want to add next player ? \n"
                     + "Press 'Y' to add or any other keys to start play : ");
             nextPlayer = input.next().charAt(0);
-
+            System.out.println("");
         } while (nextPlayer == 'Y' || nextPlayer == 'y');
 
     }
@@ -68,7 +70,8 @@ public class Main {
         do {
             try {
                 inputVal = input.nextDouble();
-                System.out.println("");
+                isInputValid = true;
+                //System.out.println("");
             }//end of try block
             catch (Exception ex) {
                 isInputValid = false;
@@ -102,14 +105,15 @@ public class Main {
             //String inputValue;
             boolean isInputValid = false;
             do {
+                System.out.println("Hey, " + player.getPlayerID() + " Input bet amount : ");
                 betAmount = inputAmount(); 
                 isInputValid = true;
                 //isInputValid = true;
                 //if the input amount is valid, check for the amount is sufficient or not
                 if ( betAmount > player.getPlayerMoney()) {
+                    isInputValid = false;
                     //method calls to input the amount to load in the players wallet
-                    inputAmountForLoadingInWallet(player, betAmount);
-                    isInputValid = true;
+                    inputAmountForLoadingInWallet(player, betAmount);                   
                 }
             } while (!isInputValid); 
             //calls setter method to assign bet amount
@@ -134,9 +138,11 @@ public class Main {
             Character loadFund = input.next().charAt(0);
             if (loadFund == 'Y' || loadFund == 'y') {
                 //calls method inputAmount() to input valid value
+                System.out.println("Input the amount to load in you wallet : ");
                 double newLoadAmount = inputAmount();
                 //method to load funds in player's wallet                               
                 player.loadFunds(newLoadAmount);
+                System.out.println("Now, " + player.getPlayerID() + " has " + decimalFormat.format( player.getPlayerMoney()));
             } else {
                 //when the player refuses to add fund, player gets 
                 //removed from the playerList
@@ -192,7 +198,10 @@ public class Main {
             
             //method calls that is used to input bet amount 
             inputBetAmount();
-                       
+             
+            System.out.println("ready for play!");
+            System.out.println(".................");
+            String next = input.next();
             //Code to deal card to dealer
 //            dealer.play();
 //            //to test remaining cards
