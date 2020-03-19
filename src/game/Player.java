@@ -142,4 +142,12 @@ public class Player extends project.Player {
     public void clearPlayerCardsDeck(){
         playerCards.clear();
     }
+    private boolean isPlayerBust(){
+        if( DeckOfCards.calculateCardValues(playerCards) > 21){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }
