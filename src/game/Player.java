@@ -136,4 +136,12 @@ public class Player extends project.Player {
     public void clearPlayerCardsDeck(){
         playerCards.clear();
     }
+    
+    //method up update player's money after win or losing game
+    //if palyer wins, amount will be +ve value
+    //if player loses, amount will be -ve value
+    public void updatePlayerMoney(double amount){
+        this.playerMoney += amount;
+    }
+    
 }

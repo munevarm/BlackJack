@@ -168,7 +168,7 @@ public class DeckOfCards   {
             //if alreay card's total face value is <=10, then ace face value is 11
             for(int i = 0; i < aces; i++){
                 //if()
-                if(totalValue >=11){
+                if(totalValue >= 11){
                     totalValue += 1;
                 }
                 else{
