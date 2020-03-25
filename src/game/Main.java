@@ -48,9 +48,9 @@ public class Main {
     //method to initialize Player object
     private static void addPlayer(){
        //Codes to input player id and initial money to deposit
-        System.out.print("Enter player ID(String or Numeric value ) :  ");
+        System.out.print("Enter player ID :  ");
         String playerId = input.next();
-        System.out.print("Enter initial deposit money (only numeric value ) : ");
+        System.out.print("Enter initial deposit money : $ ");
         //method calls to input valid value for input amount
         double depostiMoney = inputAmount();
         System.out.println("------------------------------------");
@@ -306,6 +306,26 @@ public class Main {
             nextDealingCycle = false;//indicates next deal is not required
             gameResult = true;//indicates that game is over. ready for new game
         }    
+    }
+    
+    //method to confirm player want to fold hand (surrender game) or not
+    private boolean foldGame(){
+        boolean isResponseValid = true;
+        char choice = 'Y';
+        System.out.println("Do you want to fold hand/surrenger game (Y/N) ? : ");
+        do{
+           
+            choice = input.next().toUpperCase().charAt(0);
+            if(choice != 'Y' || choice != 'N'){
+                isResponseValid = false;
+            }
+        }while(!isResponseValid);
+        if(choice == 'Y'){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
     public static void main(String[] args) {
       
