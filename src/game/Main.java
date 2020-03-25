@@ -38,7 +38,10 @@ public class Main {
 
     //variable that holds dealer bust or not in the game 
     static boolean dealerBust = false;
-
+    
+    //variable that holds value if player fold hands/surrenders game or not
+    static boolean  isFoldHand = false;
+    
     //variable that holds how many times the card has been dealed to player
     static int numberOfDealingCycles = 1;
     //variable that hold values whether further card deal is required or not
@@ -49,6 +52,7 @@ public class Main {
         gameResult = false;
         playerBust = false;
         dealerBust = false;
+        isFoldHand = false;
         numberOfDealingCycles = 1;
         nextDealingCycle = true;
     }
@@ -182,7 +186,7 @@ public class Main {
         //numberOfDealingCycles++;   
     }
 
-    //method to deal after dealing initial rounds of cards
+    //method to deal other cards to player, after dealing initial rounds of cards
     private static void dealOtherCardsToPlayer() {
         //loop that ask for the 3rd or more round of card cycles
         while (nextDealingCycle) {
@@ -236,7 +240,7 @@ public class Main {
         }//end of loop that deals card to the player till his/her demand
         
         //if statment that checs if the player has already bust or not
-        boolean isFoldHand = false;
+        isFoldHand = false;
         if(!playerBust){
             //code to print cards of dealer's hand with hiding first card
             System.out.println("Dealer's Card information  : ");
@@ -248,6 +252,7 @@ public class Main {
             isFoldHand = foldHand();
         }
         
+        /*
         //this if statement runs when the player does not fold hand/surrender game
         if(!isFoldHand && !playerBust ){          
             //Code to reveal dealr's all cards including first card
@@ -322,16 +327,25 @@ public class Main {
                     }
                 }//end of while loop used to deal further cards to dealer
             }//end of if statement that check the card value of player's hand and delaer's hand for deciding game result
-        }
-        /*
-        if (!playerBust) {
-            //Code to reveal dealr's first(all) cards
+        }//end of if block that check playerd does not fold hand and player does not bust
+        */
+    }//end of the method
+ 
+    //method to deal other cards to dealer, after showing initial cards 
+    private static void dealOtherCardsToDealer(){
+       
+        //this if statement runs when the player does not fold hand/surrender game
+        //if(!isFoldHand && !playerBust ){          
+            //Code to reveal dealr's all cards including first card
             System.out.println("Dealer's Card information  : ");
             dealer.printCardsAtHandWithFirstHidden(false);
             System.out.println("\tTotal card value at dealer's hand is : "
                     + dealer.getTotalCardValue());
+            System.out.println("----------------------------------");
+            //System.out.println("Now, Dealer's turn to deal cards: ");
+            //System.out.println("");
             
-            //thif if else if block compares the card value after players all cards are dealt and dealers two initials cards            
+            //this if else if block compares the card value after players all cards are dealt and dealers two initials cards            
             if (dealer.getTotalCardValue() == 21) {
                 System.out.println("Dealer wins!");
                 //double playerMoney = player.getPlayerBetMoney() - player.getPlayerBetMoney();
@@ -351,6 +365,8 @@ public class Main {
             } else {
                 // Loop to check the game result and deal next card
                 //to the dealer or not
+                System.out.println("Now, Dealer's turn to deal cards: ");
+                System.out.println("");
                 nextDealingCycle = true;
                 while ((dealer.getTotalCardValue() < 17
                         || dealer.getTotalCardValue() < player.getTotalCardValue())
@@ -394,10 +410,8 @@ public class Main {
                     }
                 }//end of while loop used to deal further cards to dealer
             }//end of if statement that check the card value of player's hand and delaer's hand for deciding game result
-        }//end of if statement that checks the delaer bust or not
-        */
-    }//end of the method
-    
+        //}//end of if block that check playerd does not fold hand and player does not bust 
+    }
     //method to ask the player to play next round of game or not
 //    private boolean playNextGame(){
 //        
@@ -477,9 +491,16 @@ public class Main {
             //code to check player gets BlackJack i.e.  21 or not
            checkForBlackJack();
            
-           //method calls to deal third and other rounds of cards to player and dealer
+           //method calls to deal third and other rounds of cards to player
            dealOtherCardsToPlayer();
-                     
+           
+           //this if statement checks if the player does not fold hand/surrender game & does not bust
+           if(!isFoldHand && !playerBust )
+           {
+                //method calls to deal other rounds of cards to dealer           
+                dealOtherCardsToDealer();  
+           }
+           
             //Code to ask to repeat next round of Game or not
             if (gameResult) {
                 System.out.println("----------------------------------");
