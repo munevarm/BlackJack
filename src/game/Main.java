@@ -251,84 +251,6 @@ public class Main {
             //method calls to offer player to fold hand/surrender game
             isFoldHand = foldHand();
         }
-        
-        /*
-        //this if statement runs when the player does not fold hand/surrender game
-        if(!isFoldHand && !playerBust ){          
-            //Code to reveal dealr's all cards including first card
-            System.out.println("Dealer's Card information  : ");
-            dealer.printCardsAtHandWithFirstHidden(false);
-            System.out.println("\tTotal card value at dealer's hand is : "
-                    + dealer.getTotalCardValue());
-            System.out.println("----------------------------------");
-            System.out.println("Now, Dealer's turn to deal cards: ");
-            System.out.println("");
-            
-            //this if else if block compares the card value after players all cards are dealt and dealers two initials cards            
-            if (dealer.getTotalCardValue() == 21) {
-                System.out.println("Dealer wins!");
-                //double playerMoney = player.getPlayerBetMoney() - player.getPlayerBetMoney();
-                //player.setPlayerMoney(playerMoney);
-                double playerLoseAmount = -1 * player.getPlayerBetMoney();
-                player.updatePlayerMoney(playerLoseAmount);
-                gameResult = true;
-            } else if (dealer.getTotalCardValue() > player.getTotalCardValue()) {
-                System.out.println("Dealer wins!");
-                //double playerMoney = player.getPlayerBetMoney() - player.getPlayerBetMoney();
-                //player.setPlayerMoney(playerMoney);
-                double playerLoseAmount = -1 * player.getPlayerBetMoney();
-                player.updatePlayerMoney(playerLoseAmount);
-                System.out.println("Now, Player has "
-                        + decimalFormat.format(player.getPlayerMoney()));
-                gameResult = true;
-            } else {
-                // Loop to check the game result and deal next card
-                //to the dealer or not
-                nextDealingCycle = true;
-                while ((dealer.getTotalCardValue() < 17
-                        || dealer.getTotalCardValue() < player.getTotalCardValue())
-                        && nextDealingCycle == true) {
-                    dealer.play();
-                    System.out.println("Dealer's Card information  : ");
-                    dealer.printCardsAtHandWithFirstHidden(false);
-                    System.out.println("\tTotal card value at dealer's "
-                            + "hand is : " + dealer.getTotalCardValue());
-
-                    if (dealer.getTotalCardValue() > 21) {
-                        System.out.println("Dealer Bust!");
-//                        double playerMoney = player.getPlayerMoney() + player.getPlayerBetMoney();
-//                        player.setPlayerMoney(playerMoney);
-                        double playerWinAmount = player.getPlayerBetMoney();
-                        player.updatePlayerMoney(playerWinAmount);
-                        System.out.println("Player Wins!");
-                        System.out.println("Now, Player has "
-                                + decimalFormat.format(player.getPlayerMoney()));
-                        gameResult = true;
-                        nextDealingCycle = false;
-                        break;
-                    } else if (dealer.getTotalCardValue() > player.getTotalCardValue()) {
-                        System.out.println("Dealer wins!");
-                        //double currentMoney = player.getPlayerMoney() - player.getPlayerBetMoney();
-                        //player.setPlayerMoney(currentMoney);
-                        double playerLoseAmount = -1 * player.getPlayerBetMoney();
-                        player.updatePlayerMoney(playerLoseAmount);
-                        System.out.println("Now, Player has "
-                                + decimalFormat.format(player.getPlayerMoney()));
-                        nextDealingCycle = false;
-                        gameResult = true;
-                        break;
-                    } else if (dealer.getTotalCardValue() == player.getTotalCardValue()) {
-                        System.out.println("Game push!");
-                        gameResult = true;
-                        nextDealingCycle = false;
-                        break;
-                    } else {
-                        nextDealingCycle = true;
-                    }
-                }//end of while loop used to deal further cards to dealer
-            }//end of if statement that check the card value of player's hand and delaer's hand for deciding game result
-        }//end of if block that check playerd does not fold hand and player does not bust
-        */
     }//end of the method
  
     //method to deal other cards to dealer, after showing initial cards 
@@ -412,10 +334,7 @@ public class Main {
             }//end of if statement that check the card value of player's hand and delaer's hand for deciding game result
         //}//end of if block that check playerd does not fold hand and player does not bust 
     }
-    //method to ask the player to play next round of game or not
-//    private boolean playNextGame(){
-//        
-//    }
+
     //method to check player has black jack or not after two initia cards
     private static void checkForBlackJack(){
         if (player.getTotalCardValue() == 21) {
