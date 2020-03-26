@@ -5,7 +5,7 @@
  */
 package game;
 
-import java.text.DecimalFormat;
+//import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -22,16 +22,8 @@ public class Player extends project.Player {
     private boolean playerBust;
     private boolean playerFoldHand;
     private GameResult gameResult;
-    private Scanner input = new Scanner(System.in);
-    DecimalFormat decimalFormat = new DecimalFormat("$#,##0.0");
-    
-    private enum status {
-        PLAYING, WITHDRAW
-    }
-    private status playerStatus;
-//    public Player(){
-//        
-//    }
+    //private ArrayList<Player>splitHand;
+    //DecimalFormat decimalFormat = new DecimalFormat("$#,##0.0");
     public Player(String playerID) {
         super(playerID);
         //this.playerMoney = playerMoney;
@@ -52,9 +44,9 @@ public class Player extends project.Player {
         this.playerCards.add(currentCard);
     }
 
-    public void quit() {
-        playerStatus = status.WITHDRAW;
-    }
+//    public void quit() {
+//        playerStatus = status.WITHDRAW;
+//    }
 
     /**
      * @return the playerMoney

@@ -38,14 +38,14 @@ public class Main {
     //false denotes the game is still going on       
     static boolean gameResult = false;
 
-    //variable that hold player bust or not in the game
-    static boolean playerBust = false;
-
-    //variable that holds dealer bust or not in the game 
-    static boolean dealerBust = false;
+//    //variable that hold player bust or not in the game
+//    static boolean playerBust = false;
+//
+//    //variable that holds dealer bust or not in the game 
+//    static boolean dealerBust = false;
     
     //variable that holds value if player fold hands/surrenders game or not
-    static boolean  isFoldHand = false;
+    //static boolean  isFoldHand = false;
     
     //variable that holds how many times the card has been dealed to player
     static int numberOfDealingCycles = 1;
@@ -55,9 +55,9 @@ public class Main {
     private static void initializeClassVariables(){
         nextGame= true;
         gameResult = false;
-        playerBust = false;
-        dealerBust = false;
-        isFoldHand = false;
+//        playerBust = false;
+//        dealerBust = false;
+//        isFoldHand = false;
         numberOfDealingCycles = 1;
         nextDealingCycle = true;
         player.setPlayerBust(false);
@@ -371,7 +371,23 @@ public class Main {
     }
     
     //method to check the game result
-    
+    private static GameResult checkGameResult(Player currentPlayer, Dealer currentDealer){
+        GameResult currentPlayerResult;
+         if (currentDealer.getTotalCardValue() == currentPlayer.getTotalCardValue()) {
+             currentPlayerResult = GameResult.PUSH;             
+         }
+         else if(currentDealer.getTotalCardValue() > currentPlayer.getTotalCardValue()){
+            currentPlayerResult = GameResult.LOSE;
+         }
+         else if(currentDealer.getTotalCardValue() < currentPlayer.getTotalCardValue()){
+            currentPlayerResult = GameResult.WIN;
+         }
+         else{
+             currentPlayerResult = GameResult.UNKNOWN;
+         }    
+        return currentPlayerResult;
+        
+    }
     //method to to split hand 
     private static void splitHand(){
         
