@@ -18,12 +18,16 @@ public class Player extends project.Player {
     private double playerBetMoney;
     private ArrayList<Card> playerCards;
     private int totalCardValue;
+    private boolean playerBust;
+    private boolean playerFoldHand;
     DecimalFormat decimalFormat = new DecimalFormat("$#,##0.0");
     private enum status {
         PLAYING, WITHDRAW
     }
     private status playerStatus;
-
+//    public Player(){
+//        
+//    }
     public Player(String playerID, double playerMoney) {
         super(playerID);
         this.playerMoney = playerMoney;
@@ -101,12 +105,12 @@ public class Player extends project.Player {
     }
 
     //method to print players card deck at hand
-    public void printCardsAtHand() {
+    public void printCurrentHand() {
         //Loops through all cards at hand
         for (Card aCard : playerCards) {
             System.out.println("\t" + aCard.toString());
         }
-
+        System.out.println("\tTotal card value at player's hand is : " + getTotalCardValue());
     }
 
     //method to calculate total cards value
@@ -142,6 +146,34 @@ public class Player extends project.Player {
     //if player loses, amount will be -ve value
     public void updatePlayerMoney(double amount){
         this.playerMoney += amount;
+    }
+
+    /**
+     * @return the playerBust
+     */
+    public boolean isPlayerBust() {
+        return playerBust;
+    }
+
+    /**
+     * @param playerBust the playerBust to set
+     */
+    public void setPlayerBust(boolean playerBust) {
+        this.playerBust = playerBust;
+    }
+
+    /**
+     * @return the playerFoldHand
+     */
+    public boolean isPlayerFoldHand() {
+        return playerFoldHand;
+    }
+
+    /**
+     * @param playerFoldHand the playerFoldHand to set
+     */
+    public void setPlayerFoldHand(boolean playerFoldHand) {
+        this.playerFoldHand = playerFoldHand;
     }
     
 }

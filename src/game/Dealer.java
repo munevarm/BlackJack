@@ -59,7 +59,7 @@ public class Dealer {
 //        deck.removeCard(0);
     }
     
-         public void printCardsAtHandWithFirstHidden(boolean hideFirstCard){
+         public void printCurrentHand(boolean hideFirstCard){
         //Loops through all cards at hand
 //        boolean firstCard = hideFirstCard;
 
