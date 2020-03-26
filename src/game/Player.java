@@ -7,6 +7,7 @@ package game;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
@@ -20,7 +21,10 @@ public class Player extends project.Player {
     private int totalCardValue;
     private boolean playerBust;
     private boolean playerFoldHand;
+    private GameResult gameResult;
+    private Scanner input = new Scanner(System.in);
     DecimalFormat decimalFormat = new DecimalFormat("$#,##0.0");
+    
     private enum status {
         PLAYING, WITHDRAW
     }
@@ -28,9 +32,9 @@ public class Player extends project.Player {
 //    public Player(){
 //        
 //    }
-    public Player(String playerID, double playerMoney) {
+    public Player(String playerID) {
         super(playerID);
-        this.playerMoney = playerMoney;
+        //this.playerMoney = playerMoney;
         playerCards = new ArrayList<>();
     }
     
@@ -105,13 +109,6 @@ public class Player extends project.Player {
         System.out.println("\tTotal card value at player's hand is : " + getTotalCardValue());
     }
 
-    //method to calculate total cards value
-//     public int getTotalCardValue(){
-//         int totalValue = 0;
-//         DeckOfCards deck = new DeckOfCards();
-//         totalValue = deck.calculateCardValues(playerCards);
-//         return totalValue;
-//     }
 
     /**
      * @return the playerBetMoney
@@ -126,8 +123,8 @@ public class Player extends project.Player {
     public void setPlayerBetMoney(double playerBetMoney) {
         this.playerBetMoney = playerBetMoney;
     }
-    public void loadFunds(double fund){
-        this.playerMoney += fund;
+    public void loadFunds(double loadAmount){
+        this.playerMoney += loadAmount;
     }
     public void clearPlayerCardsDeck(){
         playerCards.clear();
@@ -168,4 +165,28 @@ public class Player extends project.Player {
         this.playerFoldHand = playerFoldHand;
     }
     
-}
+     //method that ask the player to input bet amount 
+    public boolean isBetAmountValid(double betAmount) {
+                if (  this.getPlayerMoney() >= betAmount ) {
+                    return true;                  
+                }
+                else{
+                    return false;
+                }
+    }//end of method 
+
+    /**
+     * @return the gameResult
+     */
+    public GameResult getGameResult() {
+        return gameResult;
+    }
+
+    /**
+     * @param gameResult the gameResult to set
+     */
+    public void setGameResult(GameResult gameResult) {
+        this.gameResult = gameResult;
+    }
+        
+}//end of the class
