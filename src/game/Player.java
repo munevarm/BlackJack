@@ -33,22 +33,14 @@ public class Player extends project.Player {
         this.playerMoney = playerMoney;
         playerCards = new ArrayList<>();
     }
-
+    
+    public Player(Player player){
+       super(player.getPlayerID());
+    }
     @Override
     public void play() {
-//        playerStatus = status.PLAYING;
-//        DeckOfCards deck = new DeckOfCards();
-//        this.addCard(DeckOfCards.dealTopCard());
-//        if(playerMoney <= 0){
-//            throw new Exception("You dont have sufficient funds to play.");
-//        }
-//        System.out.println("You have " + decimalFormat.format(getPlayerMoney()) + 
-//                ", how much do you want to bet ? ");
-//        playerBetMoney = 
         Card aCard  = DeckOfCards.dealTopCard();
         addCard(aCard);
-//        deck.removeCard(0);
-
     }
     
     //private method to add a card to playerCardDeck

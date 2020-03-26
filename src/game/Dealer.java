@@ -51,12 +51,9 @@ public class Dealer {
         this.totalCardValue = totalCardValue;
     }
     public void play(){
-//        DeckOfCards deck = new DeckOfCards();
         Card aCard;// = new Card();
-//        DeckOfCards deck = new DeckOfCards();
         aCard = DeckOfCards.dealTopCard();
         addCard(aCard);
-//        deck.removeCard(0);
     }
     
          public void printCurrentHand(boolean hideFirstCard){

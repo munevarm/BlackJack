@@ -34,10 +34,10 @@ public class DeckOfCards   {
     }
     
     //this method deals the top card to the player or delaer on demand
-    //and also updates the playing deck by remove the dealed card immediately
+    //and also updates the playing deck by removing the dealed card immediately
     public static  Card dealTopCard(){
         Card topCard = DeckOfCards.cards.get(0);
-        DeckOfCards.cards.remove(0);
+        DeckOfCards.cards.remove(0);//removes the dealt card from the deck
         return topCard;
     }
 //    public  Card getTopCard(){

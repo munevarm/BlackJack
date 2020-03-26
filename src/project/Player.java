@@ -21,7 +21,6 @@ public abstract class Player
     {
         playerID= name;
     }
-    
     /**
      * @return the playerID
      */
