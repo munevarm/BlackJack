@@ -159,7 +159,7 @@ public class Player extends project.Player {
     
      //method that ask the player to input bet amount 
     public boolean isBetAmountValid(double betAmount) {
-                if (  this.getPlayerMoney() >= betAmount ) {
+                if (  this.getPlayerMoney() >= betAmount && betAmount > 0) {
                     return true;                  
                 }
                 else{
