@@ -28,7 +28,7 @@ public class DeckOfCards   {
     }
     //method to count total cards in playing card deck and return it
     //it counts all cards at the time of creation of full cards or after card
-    //is dealed to 
+    //is dealed to player
     public static  int countTotalCards(){
         return cards.size();
     }
